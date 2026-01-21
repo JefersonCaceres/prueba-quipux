@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Base64;
+import java.util.List;
 
 @Component
 public class SpotifyClient {
@@ -52,13 +53,30 @@ public class SpotifyClient {
     }
 
     public SpotifyGenresResponse getGenres(String accessToken) {
-        SpotifyGenresResponse res = apiClient.get()
+     /*   SpotifyGenresResponse res = apiClient.get()
                 .uri("/recommendations/available-genre-seeds")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
                 .retrieve()
                 .bodyToMono(SpotifyGenresResponse.class)
                 .block();
 
-        return res == null ? new SpotifyGenresResponse(java.util.List.of()) : res;
+        return res == null ? new SpotifyGenresResponse(java.util.List.of()) : res;*/
+        return getMockGenres();
     }
+
+    public SpotifyGenresResponse getMockGenres() {
+        return new SpotifyGenresResponse(
+                List.of(
+                        "pop",
+                        "rock",
+                        "jazz",
+                        "reggaeton",
+                        "latin",
+                        "salsa",
+                        "electronic",
+                        "hip-hop"
+                )
+        );
+    }
+
 }
